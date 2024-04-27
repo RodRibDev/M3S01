@@ -28,73 +28,7 @@ class CursoController {
     }
   }
 
-  async listar(req, res) {
-    try {
-      let params = {};
 
-      if (req.query.nome) {
-        params = { ...params, nome: req.query.nome };
-      }
-
-      if (req.query.duracao_horas) {
-        params = { ...params, duracao_horas: req.query.duracao_horas };
-      }
-
-      const cursos = await Curso.findAll({
-        where: params,
-      });
-
-      res.json(cursos);
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).json({ error: "Não possível listar todos os cursos" });
-    }
-  }
-
-  async deletar(req, res) {
-    try {
-      const { id } = req.params;
-
-      Curso.destroy({
-        where: {
-          id: id,
-        },
-      });
-
-      res.status(204).json({});
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).json({
-        error: "Não foi possível apagar o curso especificado",
-        error: error,
-      });
-    }
-  }
-
-  async alterar(req, res) {
-    try {
-      const { id } = req.params;
-
-      const curso = await Curso.findByPk(id);
-
-      if (!curso) {
-        return res.status(404).json({ message: "Curso não encontrado" });
-      }
-
-      curso.update(req.body);
-
-      await curso.save();
-
-      res.json(curso);
-
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).json({
-        error: "Não foi possível alterar o curso especificado",
-        error: error,
-      });
-    }
-  }
 }
 
 module.exports = new CursoController();

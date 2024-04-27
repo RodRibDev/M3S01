@@ -50,6 +50,27 @@ class CursoController {
         res.status(500).json({ error: "Não possível listar todos os cursos" });
       }
     }
+
+    async deletar(req, res) {
+      try {
+        const { id } = req.params;
+  
+        Curso.destroy({
+          where: {
+            id: id,
+          },
+        });
+  
+        res.status(204).json({});
+      } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+          error: "Não foi possível apagar o curso especificado",
+          error: error,
+        });
+      }
+    }
+
 }
 
 

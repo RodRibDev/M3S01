@@ -25,6 +25,7 @@ class CursoController {
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ error: "Não possível cadastrar o curso" });
+
     }}
 
     async listar(req, res) {
@@ -49,8 +50,7 @@ class CursoController {
         res.status(500).json({ error: "Não possível listar todos os cursos" });
       }
     }
-
-
 }
+
 
 module.exports = new CursoController();

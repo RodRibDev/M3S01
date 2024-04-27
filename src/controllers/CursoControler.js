@@ -71,7 +71,31 @@ class CursoController {
       }
     }
 
-}
+    async alterar(req, res) {
+      try {
+        const { id } = req.params;
+  
+        const curso = await Curso.findByPk(id);
+  
+        if (!curso) {
+          return res.status(404).json({ message: "Curso não encontrado" });
+        }
+  
+        curso.update(req.body);
+  
+        await curso.save();
+  
+        res.json(curso);
+  
+      } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+          error: "Não foi possível alterar o curso especificado",
+          error: error,
+        });
+      }
+    }
 
+}
 
 module.exports = new CursoController();

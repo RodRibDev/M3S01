@@ -1,4 +1,3 @@
-const { password } = require("../config/database.config")
 const { connection } = require("../database/connection")
 const { DataTypes} = require("sequelize")
 
